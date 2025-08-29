@@ -1,16 +1,19 @@
-from flask import Flask, render_template, request
+import mysql.connector
+from flask import Flask , request , jsonify
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return render_template('form.html')
+db = mysql.connector.connect(
+    host = "localhost" ,
+    user = "root" ,
+    password = "" ,
+    database="flaskdb"
+)
+cursor = db.cursor()
+@app.route('/users', methods=['GET'])
+def get_users():
+    cursor.execute("SELECT * FROM users")
+    return jsonify(cursor.fetchall())
 
-@app.route('/greet', methods=['POST'])
-def greet():
-    name = request.form.get('name')
-    return render_template('greet.html', name=name)
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
- 
