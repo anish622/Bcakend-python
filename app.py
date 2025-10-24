@@ -1,19 +1,19 @@
-import mysql.connector
-from flask import Flask , request , jsonify
+from flask import Flask,render_template
 
-app = Flask(__name__)
+app= Flask(__name__)
 
-db = mysql.connector.connect(
-    host = "localhost" ,
-    user = "root" ,
-    password = "" ,
-    database="flaskdb"
-)
-cursor = db.cursor()
-@app.route('/users', methods=['GET'])
-def get_users():
-    cursor.execute("SELECT * FROM users")
-    return jsonify(cursor.fetchall())
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route('/social') 
+def social_links():
+    links = {
+        "Facebook":"https://www.facebook.com",
+        "Twitter":"https://www.twitter.com",
+        "instagram":"https://www.instagram.com",
+        "Linkdin" :"https://www.linkedin.com",
+        "YouTube" : "https://www.youtube.com"
+    }
+
+    return render_template("social.html",links = links)
+
+if __name__ == '__main__':
+    app.run(debug = True)
