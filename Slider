@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Slider</title>
+
+    <style>
+        #slider {
+            width: 500px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Image Slider</h2>
+
+    <img id="slider" src="image1.jpg">
+
+    <script>
+        let images = ["image1.jpg", "image2.jpg", "image3.jpg"];
+        let i = 0;
+
+        function slideImage() {
+            i++;
+
+            if (i == images.length) {
+                i = 0;
+            }
+
+            document.getElementById("slider").src = images[i];
+        }
+
+        setInterval(slideImage, 2000);
+    </script>
+
+</body>
+</html>
